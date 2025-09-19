@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VN Legal Assistant - Trợ lý pháp lý</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --primary:#3b82f6; --primary2:#1d4ed8; --purple:#8b5cf6; --teal:#06b6d4;
+      --slate-900:#0f172a; --slate-800:#1e293b; --slate-700:#334155; --slate-500:#64748b;
+      --bg:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    }
+    body{
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif;
+      background:var(--bg); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px
+    }
+    .container{
+      background:rgba(255,255,255,.96); backdrop-filter:blur(10px);
+      border-radius:20px; box-shadow:0 20px 40px rgba(0,0,0,.12);
+      width:100%; max-width:1280px; padding:28px 28px 34px; position:relative; overflow:hidden
+    }
+    .container::before{content:""; position:absolute; left:0; right:0; top:0; height:5px;
+      background:linear-gradient(90deg,var(--primary),var(--purple),var(--teal))}
+    .header{display:flex; align-items:center; justify-content:space-between; margin-bottom:18px}
+    .header-left{display:flex; align-items:center; gap:12px}
+    .logo{font-size:32px; color:var(--primary)}
+    .title{font-size:24px; font-weight:800; background:linear-gradient(135deg,var(--primary),var(--purple));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent}
+    .subtitle{color:var(--slate-500)}
+    .nav{display:flex; gap:12px}
+    .pill{padding:8px 12px; border:1.5px solid #e2e8f0; border-radius:999px; font-size:13px; color:var(--slate-700)}
+    .grid{display:grid; grid-template-columns:1fr 1.3fr; gap:22px; margin-top:16px}
+    .panel{border:2px solid #e2e8f0; border-radius:14px; background:#fff}
+    .panel .head{display:flex; align-items:center; justify-content:space-between;
+      padding:14px 16px; border-bottom:2px solid #f1f5f9}
+    .panel .head h3{font-size:16px; color:var(--slate-900); font-weight:800; display:flex; align-items:center; gap:8px}
+    .panel .body{padding:16px}
+    .input-area textarea{
+      width:100%; min-height:220px; border:2px solid #e2e8f0; border-radius:12px;
+      padding:16px 48px 16px 14px; font-size:15px; resize:vertical; transition:.2s; background:#fff
+    }
+    .input-area textarea:focus{outline:none; border-color:var(--primary); box-shadow:0 0 0 3px rgba(59,130,246,.12)}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px; margin-top:12px; border:0; border-radius:12px;
+      background:linear-gradient(135deg,var(--primary),var(--primary2)); color:#fff; font-weight:700; padding:12px 20px;
+      cursor:pointer; transition:.2s; position:relative; overflow:hidden
+    }
+    .btn::after{content:""; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+      transform:translateX(-100%); transition:transform .9s}
+    .btn:hover{transform:translateY(-1px); box-shadow:0 10px 24px rgba(59,130,246,.28)}
+    .btn:hover::after{transform:translateX(100%)}
+    .btn:disabled{opacity:.6; cursor:not-allowed; transform:none}
+    .status{display:inline-flex; gap:8px; align-items:center; padding:6px 12px; border-radius:20px; font-size:13px; font-weight:600}
+    .online{background:#dcfce7; color:#166534} .offline{background:#fee2e2; color:#991b1b}
+    .answer{line-height:1.8; color:#334155; font-size:15px}
+    .answer h1{font-size:20px; margin:10px 0 6px} .answer h2{font-size:18px; margin:10px 0 6px} .answer h3{font-size:16px; margin:10px 0 6px}
+    .answer ul{margin:10px 0 10px 22px}
+    .citation{margin-top:14px; padding:12px; border-left:4px solid var(--primary); background:#f8fafc; border-radius:8px}
+    .citation .meta{font-weight:700; color:var(--primary); margin-bottom:6px}
+    .alert{margin-top:10px; padding:12px; background:#fef2f2; color:#b91c1c; border-left:4px solid #dc2626; border-radius:6px}
+    .spinner{width:18px; height:18px; border:2px solid #e2e8f0; border-top:2px solid var(--primary); border-radius:50%; animation:spin 1s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .footer{
+      margin-top:18px; display:flex; align-items:center; justify-content:space-between;
+      color:var(--slate-500); font-size:13px
+    }
+    .badge{display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; border:1.5px solid #e2e8f0; margin-left:8px}
+    .badge.online{background:#dcfce7; border-color:#bbf7d0; color:#166534}
+    .badge.offline{background:#fef2f2; border-color:#fecaca; color:#991b1b}
+    .timing-info{margin-top:8px; padding:8px 12px; background:#f8fafc; border-radius:8px; font-size:12px; color:#64748b}
+    .timing-row{display:flex; justify-content:space-between; margin:2px 0}
+    .ai-info{display:inline-flex; align-items:center; gap:4px; font-size:11px; color:#64748b; margin-top:4px}
+    @media (max-width: 900px){.grid{grid-template-columns:1fr} .footer{flex-direction:column; gap:10px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-left">
+        <i class="fa-solid fa-scale-balanced logo"></i>
+        <div>
+          <div class="title">VN Legal Assistant</div>
+          <div class="subtitle">Trợ lý pháp lý cho người Việt · RAG + Gemini/Ollama</div>
+        </div>
+      </div>
+      <div class="nav">
+        <div class="pill"><i class="fa-regular fa-circle-question"></i> Hỏi nhanh: Enter · Xuống dòng: Shift+Enter</div>
+        <div class="pill"><i class="fa-regular fa-clock"></i> ~ nhanh (online)</div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- LEFT: input -->
+      <div class="panel">
+        <div class="head">
+          <h3><i class="fa-solid fa-pen-to-square"></i> Nhập câu hỏi</h3>
+        </div>
+        <div class="body">
+          <div class="input-area">
+            <textarea id="q" placeholder="Ví dụ: Tôi đặt camera trước cửa nhà, có cần treo biển thông báo không?"></textarea>
+          </div>
+          <button id="askBtn" class="btn" onclick="ask()">
+            <i class="fa-solid fa-paper-plane"></i> Hỏi luật sư AI
+          </button>
+          <div id="err" class="alert" style="display:none"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT: answer -->
+      <div class="panel">
+        <div class="head">
+          <h3><i class="fa-solid fa-robot"></i> Tư vấn pháp lý</h3>
+          <div id="status" class="status" style="visibility:hidden"></div>
+        </div>
+        <div class="body">
+          <div id="answer" class="answer" style="min-height:240px;opacity:.95">
+            <div style="display:flex;align-items:center;gap:10px;color:#64748b;justify-content:center;height:220px">
+              <i class="fa-regular fa-comments" style="font-size:42px;opacity:.5"></i>
+              <div>Hãy đặt câu hỏi pháp lý để nhận tư vấn.</div>
+            </div>
+          </div>
+          <div id="cites"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="badge"><i class="fa-solid fa-shield"></i> Dữ liệu nội bộ · Trích dẫn rõ ràng</div>
+      <div id="systemInfo">
+        <span class="badge" id="connectionStatus"><i class="fa-solid fa-circle-notch fa-spin"></i> Đang kiểm tra kết nối...</span>
+      </div>
+    </div>
+  </div>
+
+<script>
+let loading=false;
+function md(s){
+  // markdown đơn giản
+  return s
+   .replace(/^### (.*)$/gim,'<h3>$1</h3>')
+   .replace(/^## (.*)$/gim,'<h2>$1</h2>')
+   .replace(/^# (.*)$/gim,'<h1>$1</h1>')
+   .replace(/\*\*(.*?)\*\*/gim,'<strong>$1</strong>')
+   .replace(/\*(.*?)\*/gim,'<em>$1</em>')
+   .replace(/^- (.*)$/gim,'<li>$1</li>')
+   .replace(/(<li>.*<\/li>)/gims,'<ul>$1</ul>')
+   .replace(/\n\n/g,'</p><p>')
+   .replace(/\n/g,'<br>')
+   .replace(/^([^<].*)$/gim,'<p>$1</p>')
+   .replace(/<p><\/p>/g,'');
+}
+function setLoading(on){
+  const btn=document.getElementById('askBtn');
+  loading=on;btn.disabled=on;
+  const status=document.getElementById('status');
+  status.style.visibility='visible';
+  status.className='status '+(on?'online':'offline');
+  status.innerHTML = on ? '<div class="spinner"></div> Đang xử lý...' : '';
+}
+async function ask(){
+  if(loading) return;
+  const q = (document.getElementById('q').value||'').trim();
+  const err = document.getElementById('err');
+  const ans = document.getElementById('answer');
+  const cites = document.getElementById('cites');
+  err.style.display='none'; cites.innerHTML='';
+  if(!q){err.innerText='Vui lòng nhập câu hỏi';err.style.display='block';return;}
+  setLoading(true);
+  ans.innerHTML = '<div style="display:flex;gap:10px;align-items:center;color:#3b82f6"><div class="spinner"></div><div>Đang phân tích…</div></div>';
+
+  try{
+    const r = await fetch('/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:q})});
+    const data = await r.json();
+    if(data.status!=='success') throw new Error(data.error||'Lỗi không xác định');
+
+    // status indicator
+    const status=document.getElementById('status');
+    if(data.mode==='gemini-online'){ status.className='status online'; status.innerHTML='<i class="fa-solid fa-wifi"></i> Online (Gemini)'; }
+    else { status.className='status offline'; status.innerHTML='<i class="fa-solid fa-wifi-slash"></i> Offline (Ollama)'; }
+
+    // answer với thông tin AI chi tiết
+    let aiInfoHtml = `
+      <div class="ai-info">
+        <i class="fa-solid fa-robot"></i> AI: ${data.ai || 'unknown'} | 
+        <i class="fa-solid fa-microchip"></i> Model: ${data.model || 'unknown'}
+      </div>`;
+    
+    let timingHtml = '';
+    if(data.timings) {
+      timingHtml = '<div class="timing-info"><strong>Chi tiết thời gian:</strong>';
+      if(data.timings.bm25_ms) timingHtml += `<div class="timing-row"><span>🔍 BM25 Search:</span><span>${data.timings.bm25_ms}ms</span></div>`;
+      if(data.timings.vector_ms) timingHtml += `<div class="timing-row"><span>🎯 Vector Search:</span><span>${data.timings.vector_ms}ms</span></div>`;
+      if(data.timings.retrieval_ms) timingHtml += `<div class="timing-row"><span>📚 Retrieval:</span><span>${data.timings.retrieval_ms}ms</span></div>`;
+      if(data.timings.llm_ms) timingHtml += `<div class="timing-row"><span>🤖 AI Processing:</span><span>${data.timings.llm_ms}ms</span></div>`;
+      timingHtml += `<div class="timing-row"><strong><span>⚡ Tổng cộng:</span><span>${data.timings.total_ms}ms</span></strong></div>`;
+      timingHtml += '</div>';
+    }
+
+    ans.innerHTML = md(data.answer) + aiInfoHtml + (`
+      <div style="margin-top:14px;padding:10px;background:#f1f5f9;border-radius:8px;color:#475569;font-size:13px;text-align:center">
+        <i class="fa-regular fa-clock"></i> Thời gian xử lý: ${data.latency_sec}s · Chế độ: ${data.mode}
+      </div>`) + timingHtml;
+
+    // citations
+    if(Array.isArray(data.citations) && data.citations.length){
+      let html = '<h3 style="margin:16px 0 6px">Căn cứ pháp lý</h3>';
+      data.citations.forEach(c=>{
+        const t = c.title||'N/A', a=c.article||'N/A', cl=c.clause||'', sc=(c.score||c.vscore||0)*100;
+        const tx=(c.text||'').slice(0,320)+( (c.text||'').length>320 ? '…' : '' );
+        html += `<div class="citation"><div class="meta">${t} | Điều ${a}${cl?`, Khoản ${cl}`:''} (Độ liên quan: ${sc.toFixed(1)}%)</div><div>${tx}</div></div>`;
+      });
+      cites.innerHTML = html;
+    }
+  }catch(e){
+    err.innerText = e.message || 'Không thể kết nối server';
+    err.style.display = 'block';
+  }finally{
+    setLoading(false);
+  }
+}
+// Enter để gửi, Shift+Enter xuống dòng
+document.getElementById('q').addEventListener('keydown',e=>{
+  if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); ask(); }
+});
+
+// Kiểm tra trạng thái hệ thống khi load trang
+async function checkSystemStatus() {
+  try {
+    const response = await fetch('/health');
+    const data = await response.json();
+    
+    const connectionStatus = document.getElementById('connectionStatus');
+    let statusHtml = '';
+    
+    if(data.internet && data.gemini_configured) {
+      statusHtml = '<i class="fa-solid fa-wifi"></i> Online: Gemini sẵn sàng';
+      connectionStatus.className = 'badge online';
+    } else if(data.ollama_configured) {
+      statusHtml = '<i class="fa-solid fa-wifi-slash"></i> Offline: Ollama sẵn sàng';
+      connectionStatus.className = 'badge offline';
+    } else {
+      statusHtml = '<i class="fa-solid fa-triangle-exclamation"></i> Lỗi cấu hình';
+      connectionStatus.className = 'badge offline';
+    }
+    
+    connectionStatus.innerHTML = statusHtml;
+    
+    // Hiển thị thêm thông tin system
+    const systemInfo = document.getElementById('systemInfo');
+    if(data.internet) {
+      systemInfo.innerHTML += '<span class="badge"><i class="fa-solid fa-globe"></i> Internet OK</span>';
+    }
+    if(data.gemini_configured) {
+      systemInfo.innerHTML += '<span class="badge"><i class="fa-solid fa-brain"></i> Gemini OK</span>';
+    }
+    if(data.ollama_configured) {
+      systemInfo.innerHTML += '<span class="badge"><i class="fa-solid fa-desktop"></i> Ollama OK</span>';
+    }
+    
+  } catch(e) {
+    const connectionStatus = document.getElementById('connectionStatus');
+    connectionStatus.innerHTML = '<i class="fa-solid fa-exclamation-triangle"></i> Không thể kiểm tra trạng thái';
+    connectionStatus.className = 'badge offline';
+  }
+}
+
+// Gọi kiểm tra trạng thái khi trang load
+document.addEventListener('DOMContentLoaded', checkSystemStatus);
+</script>
+</body>
+</html>

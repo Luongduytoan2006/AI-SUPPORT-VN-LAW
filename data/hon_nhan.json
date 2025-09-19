@@ -1,0 +1,186 @@
+{
+  "1": {
+    "tiêu_đề": "Phạm vi điều chỉnh",
+    "khoản": {
+      "1": "Luật này điều chỉnh việc kết hôn, quan hệ vợ chồng, con, chế độ tài sản, ly hôn, chăm sóc con, cấp dưỡng, và xử lý tài sản khi một bên chết (liên hệ Bộ luật dân sự về thừa kế).",
+      "2": "Văn bản này mang tính minh hoạ để thử nghiệm hệ thống RAG."
+    }
+  },
+  "2": {
+    "tiêu_đề": "Nguyên tắc cơ bản",
+    "khoản": {
+      "1": "Hôn nhân tự nguyện, tiến bộ, một vợ một chồng, vợ chồng bình đẳng.",
+      "2": "Tôn trọng quyền nhân thân, quyền sở hữu, quyền định đoạt tài sản hợp pháp.",
+      "3": "Bảo vệ quyền lợi của phụ nữ, trẻ em và người yếu thế."
+    }
+  },
+  "3": {
+    "tiêu_đề": "Điều kiện kết hôn",
+    "khoản": {
+      "1": "Nam, nữ đủ tuổi kết hôn theo quy định; tự nguyện; không thuộc trường hợp cấm.",
+      "2": "Kết hôn phải đăng ký tại cơ quan có thẩm quyền."
+    }
+  },
+  "4": {
+    "tiêu_đề": "Các hành vi bị cấm",
+    "khoản": {
+      "1": "Tảo hôn, cưỡng ép kết hôn, lừa dối kết hôn.",
+      "2": "Đang có vợ, chồng mà kết hôn với người khác; chung sống như vợ chồng với người khác.",
+      "3": "Bạo lực gia đình; mua bán người; xâm hại tình dục."
+    }
+  },
+  "5": {
+    "tiêu_đề": "Đăng ký kết hôn",
+    "khoản": {
+      "1": "Hôn nhân chỉ có giá trị pháp lý khi được đăng ký theo luật hộ tịch.",
+      "2": "Không đăng ký thì không phát sinh quyền, nghĩa vụ vợ chồng.\n\nCHƯƠNG II – CHẾ ĐỘ TÀI SẢN VỢ CHỒNG"
+    }
+  },
+  "6": {
+    "tiêu_đề": "Chế độ tài sản theo luật định (tài sản chung là mặc định)",
+    "khoản": {
+      "1": "Tài sản do vợ chồng tạo ra trong thời kỳ hôn nhân, thu nhập hợp pháp, lợi tức phát sinh từ tài sản riêng, tài sản được tặng cho chung… là tài sản chung.",
+      "2": "Quyền sử dụng đất có được sau khi kết hôn được coi là tài sản chung trừ khi chứng minh là riêng.",
+      "3": "Tài sản chung thuộc sở hữu chung hợp nhất, dùng để đảm bảo nhu cầu gia đình và nghĩa vụ chung."
+    }
+  },
+  "7": {
+    "tiêu_đề": "Tài sản riêng của vợ, chồng",
+    "khoản": {
+      "1": "Tài sản có trước khi kết hôn; được tặng cho, thừa kế riêng; tài sản phục vụ nhu cầu thiết yếu; tài sản hình thành từ tài sản riêng.",
+      "2": "Lợi tức phát sinh từ tài sản riêng trong thời kỳ hôn nhân: là tài sản chung trừ khi có thoả thuận khác.",
+      "3": "Vợ/chồng có quyền chiếm hữu, sử dụng, định đoạt tài sản riêng; nếu nhập vào tài sản chung thì xử lý theo thoả thuận."
+    }
+  },
+  "8": {
+    "tiêu_đề": "Thoả thuận chế độ tài sản (tiền hôn nhân/prenup)",
+    "khoản": {
+      "1": "Vợ chồng có thể thoả thuận bằng văn bản công chứng về chế độ tài sản khác với luật định.",
+      "2": "Thoả thuận không được làm mất quyền cấp dưỡng, nuôi con, hoặc trái nguyên tắc bình đẳng.",
+      "3": "Khi ly hôn, chia theo thoả thuận; nếu vô hiệu hoặc không rõ, áp dụng luật định."
+    }
+  },
+  "9": {
+    "tiêu_đề": "Quản lý, định đoạt tài sản chung",
+    "khoản": {
+      "1": "Giao dịch liên quan nhà ở duy nhất, quyền sử dụng đất, tài sản giá trị lớn cần sự **đồng ý** của cả hai.",
+      "2": "Nếu một bên tự ý định đoạt mà bên kia không biết, giao dịch có thể vô hiệu đối với phần quyền lợi của bên kia."
+    }
+  },
+  "10": {
+    "tiêu_đề": "Nghĩa vụ tài sản",
+    "khoản": {
+      "1": "Nghĩa vụ phát sinh nhằm đáp ứng nhu cầu thiết yếu của gia đình là nghĩa vụ chung.",
+      "2": "Nghĩa vụ phát sinh từ hành vi vi phạm pháp luật của một bên là nghĩa vụ riêng.",
+      "3": "Nợ chung do cùng xác lập hoặc cùng hưởng lợi."
+    }
+  },
+  "11": {
+    "tiêu_đề": "Tài sản được tặng cho, thừa kế trong thời kỳ hôn nhân",
+    "khoản": {
+      "1": "Nếu ghi rõ cho **riêng** vợ hoặc chồng → là tài sản riêng.",
+      "2": "Nếu cho **chung** hoặc không xác định → là tài sản chung.",
+      "3": "Trường hợp tài sản riêng được đầu tư, cải tạo bằng tài sản chung → hoàn trả phần giá trị chênh lệch khi chia."
+    }
+  },
+  "12": {
+    "tiêu_đề": "Nhà, đất là nơi ở chính",
+    "khoản": {
+      "1": "Là tài sản chung nếu hình thành trong hôn nhân (trừ tài sản riêng được chứng minh).",
+      "2": "Khi định đoạt (bán, thế chấp, tặng cho) phải có sự đồng ý của cả hai."
+    }
+  },
+  "13": {
+    "tiêu_đề": "Kinh doanh của vợ/chồng",
+    "khoản": {
+      "1": "Lợi nhuận từ kinh doanh trong thời kỳ hôn nhân là tài sản chung (trừ thoả thuận khác).",
+      "2": "Rủi ro kinh doanh do một bên tự ý gánh chịu nếu dùng **tài sản riêng**; nếu dùng tài sản chung phải được thoả thuận.\n\nCHƯƠNG III – LY HÔN, CHIA TÀI SẢN, NUÔI CON"
+    }
+  },
+  "14": {
+    "tiêu_đề": "Căn cứ ly hôn",
+    "khoản": {
+      "1": "Hôn nhân lâm vào tình trạng trầm trọng, đời sống chung không thể kéo dài, mục đích hôn nhân không đạt được.",
+      "2": "Hoà giải tại toà là thủ tục bắt buộc trước khi xét xử (trừ trường hợp bạo lực gia đình nghiêm trọng)."
+    }
+  },
+  "15": {
+    "tiêu_đề": "Nguyên tắc chia tài sản khi ly hôn",
+    "khoản": {
+      "1": "Chia **đôi** nhưng xét đến hoàn cảnh, công sức đóng góp, lỗi của mỗi bên, quyền lợi chính đáng của vợ con.",
+      "2": "Tài sản riêng của ai trả lại cho người đó; phần tài sản riêng đã nhập vào chung xử lý theo thoả thuận hoặc theo đóng góp.",
+      "3": "Bảo đảm chỗ ở tối thiểu cho người nuôi con nhỏ."
+    }
+  },
+  "16": {
+    "tiêu_đề": "Xác định tài sản chung – riêng khi tranh chấp",
+    "khoản": {
+      "1": "Ai **yêu cầu** công nhận tài sản riêng thì phải **chứng minh**; nếu không chứng minh được thì coi là tài sản chung.",
+      "2": "Tài sản đứng tên một người nhưng tạo lập trong thời kỳ hôn nhân: suy đoán là chung, trừ khi có bằng chứng ngược lại."
+    }
+  },
+  "17": {
+    "tiêu_đề": "Quyền nuôi con, cấp dưỡng",
+    "khoản": {
+      "1": "Thoả thuận người trực tiếp nuôi con; nếu không được, Toà án quyết định dựa trên lợi ích tốt nhất của trẻ.",
+      "2": "Người không trực tiếp nuôi con có nghĩa vụ cấp dưỡng phù hợp thu nhập, khả năng thực tế."
+    }
+  },
+  "18": {
+    "tiêu_đề": "Chia nhà, đất khi ly hôn",
+    "khoản": {
+      "1": "Ưu tiên thoả thuận: bán chia tiền; một bên nhận sử dụng và thanh toán chênh lệch.",
+      "2": "Nếu là tài sản riêng nhưng là nơi ở duy nhất của con nhỏ, xem xét cho bên nuôi con được lưu cư có thời hạn."
+    }
+  },
+  "19": {
+    "tiêu_đề": "Xử lý nợ chung, nợ riêng khi ly hôn",
+    "khoản": {
+      "1": "Nợ phát sinh phục vụ nhu cầu gia đình: chia theo phần.",
+      "2": "Nợ riêng do một bên tự vay cho mục đích riêng: bên đó tự trả, trừ khi bên kia cùng ký hoặc cùng hưởng lợi.\n\nCHƯƠNG IV – QUAN HỆ VỚI THỪA KẾ (DÂN SỰ)"
+    }
+  },
+  "20": {
+    "tiêu_đề": "Tài sản vợ chồng khi một bên chết",
+    "khoản": {
+      "1": "Xác định **khối tài sản chung** → chia **1/2** cho người còn sống; **1/2** là di sản chia thừa kế.",
+      "2": "Nếu có thoả thuận chế độ tài sản riêng → thực hiện theo thoả thuận trước, sau đó mới chia thừa kế."
+    }
+  },
+  "21": {
+    "tiêu_đề": "Hàng thừa kế và di chúc (tham chiếu dân sự – minh hoạ)",
+    "khoản": {
+      "1": "Hàng thừa kế thứ nhất: vợ/chồng còn sống, cha mẹ, con.",
+      "2": "Có di chúc hợp pháp → chia theo di chúc; phần bắt buộc cho người phụ thuộc theo luật.",
+      "3": "Không có di chúc → chia theo pháp luật, các đồng thừa kế cùng hàng được phần bằng nhau."
+    }
+  },
+  "22": {
+    "tiêu_đề": "Quan hệ giữa chia tài sản khi ly hôn và thừa kế",
+    "khoản": {
+      "1": "Nếu đã **ly hôn có hiệu lực** trước khi một bên chết → không còn quan hệ thừa kế của vợ/chồng với nhau.",
+      "2": "Nếu đang giải quyết ly hôn mà một bên chết → Toà đình chỉ ly hôn, chuyển sang **thủ tục thừa kế** đối với phần di sản."
+    }
+  },
+  "23": {
+    "tiêu_đề": "Chứng cứ và nghĩa vụ chứng minh",
+    "khoản": {
+      "1": "Hồ sơ tài sản (hợp đồng, sao kê, sổ đỏ, đăng ký xe, chứng từ góp vốn…) là căn cứ xác định.",
+      "2": "Trường hợp khó xác định giá trị, Toà án có thể trưng cầu giám định/định giá."
+    }
+  },
+  "24": {
+    "tiêu_đề": "Hoà giải, thoả thuận",
+    "khoản": {
+      "1": "Khuyến khích hoà giải, thoả thuận về tài sản, nuôi con.",
+      "2": "Thoả thuận phải đảm bảo quyền lợi chính đáng của con."
+    }
+  },
+  "25": {
+    "tiêu_đề": "Điều khoản chuyển tiếp",
+    "khoản": {
+      "1": "Tranh chấp phát sinh trước ngày hiệu lực áp dụng theo quy định chuyển tiếp tương ứng.",
+      "2": "Văn bản minh hoạ này chỉ phục vụ thử nghiệm kỹ thuật."
+    }
+  }
+}

@@ -21,6 +21,14 @@
       "2": "Kết hôn phải đăng ký tại cơ quan có thẩm quyền."
     }
   },
+  "3a": {
+    "tiêu_đề": "Tuổi kết hôn",
+    "khoản": {
+      "1": "Nam từ đủ 20 tuổi trở lên, nữ từ đủ 18 tuổi trở lên.",
+      "2": "Trong trường hợp đặc biệt, Chủ tịch UBND cấp tỉnh có thể cho phép kết hôn khi nam từ đủ 18 tuổi, nữ từ đủ 16 tuổi theo đề nghị của đương sự và có xác nhận của UBND cấp xã.",
+      "3": "Việc kết hôn trước tuổi quy định tại khoản 2 Điều này phải có lý do chính đáng và phù hợp với tình hình cụ thể của địa phương."
+    }
+  },
   "4": {
     "tiêu_đề": "Các hành vi bị cấm",
     "khoản": {

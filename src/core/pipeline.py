@@ -70,9 +70,12 @@ def _rag_answer(question: str, ctx: str, settings: Settings) -> str:
         sys_prompt = PROMPT_PATH.read_text(encoding="utf-8")
     except Exception:
         sys_prompt = (
-            "Bạn là trợ lý pháp lý tiếng Việt. Chỉ dùng CONTEXT. "
-            "Mỗi luận điểm phải có trích dẫn [title | Điều…, Khoản…]. "
-            "Nếu thiếu căn cứ, ghi 'Chưa đủ căn cứ'. Trả lời ngắn gọn dạng markdown."
+            "Bạn là Luật sư tư vấn pháp luật Việt Nam chuyên nghiệp. "
+            "Sử dụng CONTEXT để tư vấn chính xác và thực tiễn. "
+            "Mỗi kết luận phải có trích dẫn [title | Điều X, Khoản Y]. "
+            "Trả lời đầy đủ, chi tiết như một luật sư chuyên nghiệp. "
+            "Nếu thiếu thông tin, ghi 'Cần tham khảo thêm' và nêu rõ cần gì. "
+            "Dùng markdown có cấu trúc rõ ràng."
         )
     messages = [
         {"role": "system", "content": sys_prompt},

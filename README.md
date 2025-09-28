@@ -1,7 +1,6 @@
 # 🏛️ AI Legal Assistant - Hệ thống Tư vấn Pháp luật Việt Nam# VN Legal Assistant (RAG + Gemini/Ollama)
 
 
-
 > **Trợ lý thông minh hỗ trợ tư vấn pháp luật Việt Nam**  - **FE**: `app/index.html` (2 cột: nhập & trả lời, header/footer, loading indicator).
 
 > Sử dụng công nghệ RAG (Retrieval-Augmented Generation) kết hợp AI để cung cấp thông tin pháp lý chính xác và thực tiễn.- **BE**: `src/server.py` (Flask). Router:
@@ -22,7 +21,7 @@ python -m venv .venv
 
 - 🔍 **Tìm kiếm thông minh**: Sử dụng BM25 + Vector search để tìm kiếm điều luật liên quansource .venv/bin/activate
 
-- 🤖 **AI phân tích**: Gemini (online) hoặc Ollama (offline) để tạo câu trả lời chuyên nghiệppip install -r requirements.txt
+- 🤖 **AI phân tích**: Gemini (online) hoặc Ollama (offline) để tạo câu trả lời chuyên nghiệp pip install -r requirements.txt
 
 - 📚 **Trích dẫn chính xác**: Mỗi kết luận đều có trích dẫn điều, khoản cụ thểcp .env.example .env          # điền GOOGLE_API_KEY nếu dùng online
 
@@ -42,7 +41,7 @@ User Question → Retrieval (BM25 + Vector) → AI Analysis → Structured Answe
               (JSON + Index)              Ollama        + Citations
 ```
 
-## 📊 Dữ liệu pháp luật hiện có
+## 📊 Dữ liệu pháp luật hiện có (nguồn chính: THƯ VIỆN PHÁP LUẬT)
 
 - 🏠 **Hôn nhân và Gia đình**: Điều kiện kết hôn, ly hôn, tài sản chung
 - 🚗 **Giao thông đường bộ**: Vi phạm, mức phạt, xử lý
@@ -58,13 +57,13 @@ User Question → Retrieval (BM25 + Vector) → AI Analysis → Structured Answe
 # Xem hướng dẫn chi tiết trong SETUP.md
 ```
 
-### 2. Chạy web server
+### 2. Chạy web server (local)
 ```bash
 python src/server.py
 # Truy cập: http://localhost:5000
 ```
 
-### 3. Sử dụng CLI
+### 3. Sử dụng CLI test trước
 ```bash
 python src/run_cli.py "Tôi có thể kết hôn ở tuổi nào?"
 ```
@@ -92,8 +91,8 @@ Hệ thống tự động điều chỉnh theo môi trường:
 
 ### Thông số quan trọng
 
-- `TOP_K=8`: Số kết quả tìm kiếm tối đa
-- `MAX_CONTEXT_CHARS=6000`: Độ dài context cho AI
+- `TOP_K=5`: Số kết quả tìm kiếm tối đa
+- `MAX_CONTEXT_CHARS=3000`: Độ dài context cho AI
 - `MAX_TOKENS=1000`: Độ dài câu trả lời
 - `EMBEDDINGS_ENABLED=true`: Bật vector search
 
@@ -172,11 +171,6 @@ AI-Thuc-Chien/
 - Đề xuất tính năng mới
 - Cải thiện dữ liệu pháp luật
 - Tối ưu trải nghiệm người dùng
-
-### 📚 Đóng góp
-- Fork repository
-- Tạo branch tính năng
-- Submit pull request
 
 ## ⚖️ Lưu ý pháp lý
 

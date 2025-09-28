@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Test toàn bộ hệ thống AI Legal Assistant
 """

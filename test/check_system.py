@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Tool kiểm tra cấu hình và trạng thái hệ thống VN Legal Assistant
+Tool kiểm tra cấu hình và trạng thái hệ thống AURA Legal
 """
 
 import os
@@ -8,8 +8,9 @@ import sys
 import requests
 from pathlib import Path
 
-# Thêm src vào path để import được
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+# Thêm src vào path để import được (parent directory)
+ROOT = Path(__file__).parent.parent
+sys.path.insert(0, str(ROOT / "src"))
 
 from core.settings import Settings
 from core.utils import check_internet_connection, print_status_info
@@ -69,7 +70,7 @@ def main():
     console = Console()
     
     # Header
-    console.print("🔍 VN Legal Assistant - Kiểm tra hệ thống", style="bold blue")
+    console.print("🔍 AURA Legal - Kiểm tra hệ thống", style="bold blue")
     console.print("=" * 60)
     console.print()
     

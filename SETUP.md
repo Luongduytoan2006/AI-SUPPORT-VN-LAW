@@ -1,23 +1,34 @@
-# 🛠️ SETUP.md - Hướng dẫn Cài đặt AI Legal Assistant
+# 🛠️ SETUP.md - Hướng dẫn Cài đặt AURA Legal
 
-> **Hướng dẫn chi tiết cài đặt hệ thống AI Legal Assistant từ A-Z**
+> **Hướng dẫn chi tiết cài đặt hệ thống AURA Legal - Nền tảng tra cứu văn bản luật thông minh**
+
+## 📋 Tổng quan
+
+AURA Legal là hệ thống giúp doanh nghiệp/tổ chức:
+- 📚 Đưa văn bản luật riêng vào hệ thống (JSON format)
+- 🔍 Tự động vector hóa và index
+- 🤖 AI trả lời câu hỏi dựa 100% trên văn bản được cung cấp
+- 💡 Có thể chạy offline hoàn toàn với Ollama
 
 ## 📋 Yêu cầu hệ thống
 
-### Tối thiểu
+### Tối thiểu (cho chế độ online với Gemini)
 - **OS**: Windows 10/11, macOS 10.14+, Ubuntu 18.04+
 - **Python**: 3.10 hoặc cao hơn
-- **RAM**: 8GB (khuyến nghị 16GB)
-- **Ổ cứng**: 5GB trống
-- **Internet**: Cần thiết cho việc cài đặt và sử dụng Gemini
+- **RAM**: 4GB
+- **Ổ cứng**: 2GB trống
+- **Internet**: Cần thiết (sử dụng Gemini API)
 
-### Khuyến nghị
+### Khuyến nghị (cho chế độ offline với Ollama)
 - **CPU**: 4 cores trở lên
-- **RAM**: 16GB trở lên
+- **RAM**: 16GB trở lên (Ollama cần nhiều RAM)
 - **SSD**: Để tăng tốc độ vector search
-- **GPU**: Không bắt buộc nhưng hữu ích cho Ollama
+- **Ổ cứng**: 10GB+ (cho Ollama models)
+- **GPU**: Không bắt buộc nhưng giúp Ollama chạy nhanh hơn
 
 ## 🚀 Cài đặt nhanh (5 phút)
+
+### Phương án 1: Sử dụng Gemini (Online - Đơn giản nhất)
 
 ```bash
 # 1. Clone repository
@@ -25,25 +36,54 @@ git clone https://github.com/your-username/AI-Thuc-Chien.git
 cd AI-Thuc-Chien
 
 # 2. Tạo virtual environment
-python -m venv venv
+python -m venv .venv
 
 # 3. Kích hoạt virtual environment
 # Windows:
-venv\Scripts\activate
+.venv\Scripts\activate
 # macOS/Linux:
-source venv/bin/activate
+source .venv/bin/activate
 
 # 4. Cài đặt dependencies
 pip install -r requirements.txt
 
-# 5. Kiểm tra hệ thống
-python check_system.py
+# 5. Cấu hình API key
+cp .env.example .env
+# Mở .env và điền GOOGLE_API_KEY
 
-# 6. Chạy server
+# 6. Build vector index
+python rebuild_index.py
+
+# 7. Kiểm tra hệ thống
+python tools/check_system.py
+
+# 8. Chạy server
 python src/server.py
 ```
 
 🎉 **Xong!** Truy cập http://localhost:5000
+
+### Phương án 2: Sử dụng Ollama (Offline - Hoàn toàn riêng tư)
+
+```bash
+# Làm theo các bước 1-4 ở trên, sau đó:
+
+# 5. Cài đặt Ollama
+# Tải từ: https://ollama.ai/download
+# Windows: Chạy installer
+# macOS: brew install ollama
+# Linux: curl -fsSL https://ollama.ai/install.sh | sh
+
+# 6. Tải models cần thiết
+ollama pull qwen2.5:3b-instruct    # LLM model
+ollama pull nomic-embed-text        # Embedding model
+
+# 7. Build vector index
+python rebuild_index.py
+
+# 8. Chạy server (không cần API key)
+python src/server.py
+```
 
 ## 📦 Cài đặt chi tiết
 
@@ -70,19 +110,19 @@ cd AI-Thuc-Chien
 
 #### 2.1. Tạo virtual environment
 ```bash
-python -m venv venv
+python -m venv .venv
 ```
 
 #### 2.2. Kích hoạt environment
 ```bash
 # Windows Command Prompt
-venv\Scripts\activate
+.venv\Scripts\activate
 
 # Windows PowerShell  
-venv\Scripts\Activate.ps1
+.venv\Scripts\Activate.ps1
 
 # macOS/Linux
-source venv/bin/activate
+source .venv/bin/activate
 ```
 
 #### 2.3. Upgrade pip
@@ -236,7 +276,7 @@ du -sh index/
 
 #### 8.1. Chạy system check
 ```bash
-python check_system.py
+python tools/check_system.py
 ```
 
 Kết quả mong đợi:
@@ -323,14 +363,82 @@ pip install gunicorn
 gunicorn -w 4 -b 0.0.0.0:5000 src.server:app
 ```
 
-## 🚨 Xử lý sự cố
+## � Sử dụng dữ liệu luật riêng của bạn
+
+### Bước 1: Chuẩn bị dữ liệu JSON
+
+Tạo file JSON trong thư mục `data/` theo format:
+
+```json
+{
+  "dieu_1": {
+    "tiêu_đề": "Nguyên tắc chung",
+    "toàn_văn": "Nội dung toàn văn điều 1..."
+  },
+  "dieu_2": {
+    "tiêu_đề": "Phạm vi áp dụng",
+    "khoản": {
+      "1": "Nội dung khoản 1",
+      "2": {
+        "điểm": {
+          "a": "Nội dung điểm a",
+          "b": "Nội dung điểm b"
+        }
+      }
+    }
+  }
+}
+```
+
+### Bước 2: Xóa dữ liệu mẫu (nếu không cần)
+
+```bash
+# Backup dữ liệu mẫu
+mkdir data_backup
+mv data/*.json data_backup/
+
+# Hoặc xóa trực tiếp
+rm data/*.json
+```
+
+### Bước 3: Thêm dữ liệu mới
+
+```bash
+# Copy file JSON của bạn
+cp /path/to/your/legal_docs.json data/
+
+# Validate JSON format
+python -m json.tool data/your_file.json
+```
+
+### Bước 4: Build lại index
+
+```bash
+# Xóa index cũ
+rm -rf index/
+
+# Build index mới
+python rebuild_index.py
+
+# Kiểm tra
+ls -lh index/index.jsonl
+```
+
+### Bước 5: Test với dữ liệu mới
+
+```bash
+python src/run_cli.py "Câu hỏi về dữ liệu mới"
+python src/server.py
+```
+
+## �🚨 Xử lý sự cố
 
 ### Lỗi thường gặp
 
 #### 1. "ModuleNotFoundError"
 ```bash
 # Kiểm tra virtual environment đã activate chưa
-which python  # Phải trỏ đến venv/bin/python
+which python  # Phải trỏ đến .venv/bin/python
 
 # Cài lại requirements
 pip install -r requirements.txt --force-reinstall

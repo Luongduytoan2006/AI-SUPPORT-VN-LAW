@@ -12,7 +12,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 def main():
     """Build vector index (skip if already exists)"""
-    print("🔄 AI Legal Assistant - Build Vector Index")
+    print("🔄 AURA Legal - Build Vector Index")
     print("=" * 50)
     
     # Paths

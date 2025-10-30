@@ -9,6 +9,7 @@ from core.utils import print_status_info, print_step_timing, print_timing_info, 
 
 ROOT = Path(__file__).resolve().parents[1]  # project root
 APP_DIR = ROOT / "app"
+GEMINI_PROMPT_PATH = ROOT / "prompts" / "gemini_answer.txt"
 
 app = Flask(__name__, static_folder=str(APP_DIR), template_folder=str(APP_DIR))
 app.secret_key = os.getenv('SECRET_KEY', 'vn-legal-assistant-2024')
@@ -46,48 +47,21 @@ def _gemini_answer(question: str, context: str) -> str | None:
         return None
     model_id = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
     genai.configure(api_key=key)
-    prompt = f'''
-Bạn là Luật sư tư vấn pháp luật Việt Nam chuyên nghiệp. Tư vấn dựa trên CONTEXT chính xác và thực tiễn.
-
-NGUYÊN TẮC:
-- CHỈ sử dụng thông tin có trong CONTEXT
-- Mỗi kết luận phải có trích dẫn Luật Z | Điều X, khoản Y
-VD: Theo quy định [hon_nhan | Điều 3a, Khoản 1], nam từ đủ 20 tuổi trở lên và nữ từ đủ 18 tuổi trở lên thì được phép kết hôn. Như vậy, bạn 21 tuổi thì đáp ứng yêu cầu về độ tuổi để kết hôn. => Sai
-Đúng => Theo quy định luật hôn nhân điều 3a, khoản 1, nam từ đủ 20 tuổi trở lên và nữ từ đủ 18 tuổi trở lên thì được phép kết hôn. Như vậy, bạn 21 tuổi thì đáp ứng yêu cầu về độ tuổi để kết hôn.
-- Trả lời đầy đủ, chi tiết như luật sư chuyên nghiệp. 
-- Nếu thiếu thông tin: ghi "Cần tham khảo thêm" + nêu rõ yêu cầu hỏi lại câu hỏi đầy đủ, bổ sung những điều còn thiếu, cần gì
-
-CẤU TRÚC MARKDOWN:
-
-# Kết luận nhanh
-- 2-4 điểm chính với trích dẫn
-
-# Phân tích pháp lý chi tiết
-## Quy định pháp luật
-- Nêu rõ các điều luật áp dụng với trích dẫn đầy đủ
-- Giải thích ý nghĩa và cách hiểu
-
-## Áp dụng thực tiễn  
-- Hướng dẫn cụ thể cách thực hiện
-- Các trường hợp đặc biệt (nếu có)
-- Lưu ý quan trọng
-
-# Hướng dẫn thực hiện (nếu áp dụng)
-- Các bước cần làm
-- Thủ tục, giấy tờ cần thiết
-- Cơ quan có thẩm quyền
-
-# Căn cứ pháp lý đã áp dụng
-- Liệt kê tất cả [title | Điều X, Khoản Y]
-- Mỗi căn cứ kèm tóm tắt nội dung
-
-# Cần tham khảo thêm (nếu có)
-- Những quy định chưa có trong CONTEXT
-- Văn bản pháp luật liên quan khác
-
-# Lưu ý quan trọng
-- Thông tin mang tính tham khảo
-- Nên tham khảo luật sư để tư vấn cụ thể
+    
+    # Đọc system prompt từ file
+    try:
+        system_prompt = GEMINI_PROMPT_PATH.read_text(encoding="utf-8")
+    except Exception:
+        # Fallback prompt nếu file không tồn tại
+        system_prompt = (
+            "Bạn là Luật sư tư vấn pháp luật Việt Nam chuyên nghiệp. "
+            "Tư vấn dựa trên CONTEXT chính xác và thực tiễn. "
+            "CHỈ sử dụng thông tin có trong CONTEXT. "
+            "Mỗi kết luận phải có trích dẫn văn bản pháp luật đầy đủ (Luật/Nghị định | Điều X, Khoản Y). "
+            "Trả lời đầy đủ, chi tiết như luật sư chuyên nghiệp."
+        )
+    
+    prompt = f'''{system_prompt}
 
 CONTEXT:
 {context}
@@ -214,7 +188,7 @@ def health():
     })
 
 if __name__ == "__main__":
-    print("🚀 Khởi động VN Legal Assistant")
+    print("🚀 Khởi động AURA Legal")
     print("📚 Loading index…")
     load_index(settings.data_dir)
     print("✅ Ready at http://localhost:5000")

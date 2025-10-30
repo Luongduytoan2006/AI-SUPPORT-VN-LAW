@@ -1,12 +1,12 @@
 """
-Test toàn bộ hệ thống AI Legal Assistant
+Test toàn bộ hệ thống AURA Legal
 """
 import os
 import sys
 from pathlib import Path
 
 # Add src to path
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
 def test_basic_question():
@@ -31,11 +31,11 @@ def test_basic_question():
 
 def main():
     """Chạy tất cả tests"""
-    print("🚀 AI Legal Assistant - System Test")
+    print("🚀 AURA Legal - System Test")
     print("=" * 50)
     
     tests = [
-        ("Kiểm tra hệ thống", lambda: os.system("python check_system.py") == 0),
+        ("Kiểm tra hệ thống", lambda: os.system("python tools/check_system.py") == 0),
         ("Build vector index", lambda: os.system("python rebuild_index.py") == 0), 
         ("Test câu hỏi cơ bản", test_basic_question),
     ]

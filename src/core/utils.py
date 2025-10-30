@@ -60,7 +60,7 @@ def print_status_info(is_online: bool, ai_type: str, model: str, question_head: 
     
     # Tạo bảng trạng thái
     status_table = Table(
-        title="🤖 VN Legal Assistant - Thông tin phiên làm việc",
+        title="🤖 AURA Legal - Thông tin phiên làm việc",
         header_style="bold blue",
         box=box.ROUNDED,
         show_header=True,

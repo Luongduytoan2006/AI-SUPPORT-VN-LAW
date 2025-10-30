@@ -20,6 +20,8 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 PROMPT_PATH = ROOT / "prompts" / "final_answer.txt"
 
 # ---- Heuristics rút gọn để thu hẹp phạm vi theo từ khóa ----
+# NOTE: Đây là ví dụ cho dữ liệu mẫu pháp luật Việt Nam
+# Nếu bạn dùng dữ liệu riêng, hãy tùy chỉnh hoặc comment lại phần này
 _KEY2TITLE = [
     (re.compile(r"\b(shtt|sở\s*hữu\s*trí\s*tuệ|nhãn\s*hiệu|bản\s*quyền|sáng\s*chế|bí\s*mật\s*kinh\s*doanh)\b", re.I), "so_huu_tri_tue"),
     (re.compile(r"\b(đất\s*đai|sổ\s*đỏ|giấy\s*chứng\s*nhận)\b", re.I), "dat_dai"),
@@ -28,6 +30,7 @@ _KEY2TITLE = [
     (re.compile(r"\b(giao\s*thông|nồng\s*độ\s*cồn|xử\s*phạt|mức\s*phạt|phạt)\b", re.I), "giao_thong_duong_bo"),
     (re.compile(r"\b(an\s*ninh\s*mạng|không\s*gian\s*mạng)\b", re.I), "an_ninh_mang"),
 ]
+# Để tắt tính năng này (tìm kiếm toàn bộ dữ liệu), đặt: _KEY2TITLE = []
 
 def _restrict_titles_for_penalty(all_titles: List[str]) -> List[str]:
     pref = [t for t in all_titles if t.startswith("xu_phat_")]

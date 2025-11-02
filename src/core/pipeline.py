@@ -85,7 +85,7 @@ def _rag_answer(question: str, ctx: str, settings: Settings) -> str:
         {"role": "user", "content": f"CONTEXT:\n{ctx}\n\nCÂU HỎI: {question}"},
     ]
     model       = getattr(settings, "llm_model",  os.getenv("LLM_MODEL", "qwen2.5:3b-instruct"))
-    max_tokens  = getattr(settings, "max_tokens", int(os.getenv("MAX_TOKENS", "400")))
+    max_tokens  = getattr(settings, "max_tokens", int(os.getenv("MAX_TOKENS", "512")))
     temperature = getattr(settings, "temperature", 0.0)
 
     hb_sec = float(os.getenv("HEARTBEAT_SEC", "60"))
@@ -197,9 +197,13 @@ def answer_question(question: str, settings: Settings) -> Dict:
     direct_kw = re.compile(r"\b(điều\s+\d+|khoản\s+\d+|trích|khái\s*niệm|định\s*nghĩa|mức\s*phạt|xử\s*phạt|phạt)\b", re.I)
     use_direct = settings.direct_cite_first and (direct_kw.search(question) or not settings.llm_enabled)
 
-    if use_direct or not ctx.strip():
+    # Nếu không enable LLM hoặc không có context -> direct cite
+    if use_direct or not ctx.strip() or not settings.llm_enabled:
         total = (time.perf_counter() - t_all) * 1000.0
-        print("✅ Sử dụng chế độ trích dẫn trực tiếp")
+        if not settings.llm_enabled:
+            print("⚠️  LLM disabled - Chỉ trả về trích dẫn trực tiếp")
+        else:
+            print("✅ Sử dụng chế độ trích dẫn trực tiếp")
         out = _direct_cite(hits)
         
         timing_data = {

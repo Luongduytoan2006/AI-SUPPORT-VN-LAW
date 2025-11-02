@@ -19,8 +19,8 @@ class Settings:
     top_k: int = int(os.getenv("TOP_K", "8"))
     max_context_chars: int = int(os.getenv("MAX_CONTEXT_CHARS", "6000"))
 
-    # Gen length - Tăng max_tokens để có câu trả lời chi tiết hơn
-    max_tokens: int = int(os.getenv("MAX_TOKENS", "1000"))
+    # Gen length - Giảm max_tokens để tăng tốc độ phản hồi (offline mode)
+    max_tokens: int = int(os.getenv("MAX_TOKENS", "512"))
     temperature: float = float(os.getenv("TEMPERATURE", "0.2"))
 
     # Modes - Tắt direct_cite để luôn có phân tích đầy đủ

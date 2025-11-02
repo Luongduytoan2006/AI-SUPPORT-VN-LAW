@@ -1,5 +1,5 @@
 # core/llm_client.py
-import os, time, httpx
+import os, time, httpx, json
 
 BASE_URL = (
     os.getenv("OLLAMA_BASE_URL")
@@ -25,42 +25,64 @@ def _client():
         http2=False,
     )
 
-def chat(messages, model=None, max_tokens=256, temperature=0.0):
+def chat(messages, model=None, max_tokens=256, temperature=0.0, stream=False):
+    """
+    Chat với LLM qua OpenAI-compatible API.
+    
+    Args:
+        stream: Nếu True, trả về generator cho streaming (hiển thị từng token)
+                Nếu False, đợi toàn bộ câu trả lời rồi mới trả về (mặc định)
+    """
     mdl = model or os.getenv("LLM_MODEL", "qwen2.5:3b-instruct")
     url = f"{BASE_URL}/v1/chat/completions"
-    payload = {"model": mdl, "messages": messages, "max_tokens": max_tokens, "temperature": temperature}
+    payload = {
+        "model": mdl, 
+        "messages": messages, 
+        "max_tokens": max_tokens, 
+        "temperature": temperature,
+        "stream": stream
+    }
 
-    last_err = None
-    for attempt in range(HTTP_RETRIES + 1):
-        try:
-            with _client() as client:
-                r = client.post(url, headers=_headers(), json=payload)
-            r.raise_for_status()
-            data = r.json()
-            return data["choices"][0]["message"]["content"]
-        except Exception as e:
-            last_err = e
-            if attempt < HTTP_RETRIES:
-                time.sleep(HTTP_BACKOFF_SEC * (attempt + 1))
-            else:
-                raise last_err
-
-def _normalize_embeddings_payload(data):
-    if data is None:
-        return []
-    if isinstance(data, dict) and isinstance(data.get("embedding"), list):
-        return [data["embedding"]]
-    if isinstance(data, dict) and isinstance(data.get("embeddings"), list):
-        embs = data["embeddings"]
-        if embs and isinstance(embs[0], list):
-            return embs
-        if embs and isinstance(embs[0], dict) and "embedding" in embs[0]:
-            return [e["embedding"] for e in embs]
-    if isinstance(data, dict) and isinstance(data.get("data"), list):
-        return [e.get("embedding") for e in data["data"]]
-    if isinstance(data, list) and data and isinstance(data[0], dict) and "embedding" in data[0]:
-        return [e["embedding"] for e in data]
-    return []
+    if not stream:
+        # Non-streaming: đợi toàn bộ response
+        last_err = None
+        for attempt in range(HTTP_RETRIES + 1):
+            try:
+                with _client() as client:
+                    r = client.post(url, headers=_headers(), json=payload)
+                r.raise_for_status()
+                data = r.json()
+                return data["choices"][0]["message"]["content"]
+            except Exception as e:
+                last_err = e
+                if attempt < HTTP_RETRIES:
+                    time.sleep(HTTP_BACKOFF_SEC * (attempt + 1))
+                else:
+                    raise last_err
+    else:
+        # Streaming: trả về generator
+        def stream_response():
+            try:
+                with _client() as client:
+                    with client.stream("POST", url, headers=_headers(), json=payload) as r:
+                        r.raise_for_status()
+                        for line in r.iter_lines():
+                            if line.strip():
+                                if line.startswith(b"data: "):
+                                    line = line[6:]
+                                if line == b"[DONE]":
+                                    break
+                                try:
+                                    chunk = json.loads(line)
+                                    delta = chunk.get("choices", [{}])[0].get("delta", {})
+                                    content = delta.get("content", "")
+                                    if content:
+                                        yield content
+                                except:
+                                    continue
+            except Exception as e:
+                print(f"⚠️ Streaming error: {e}")
+        return stream_response()
 
 def embed_ollama(texts, model=None):
     """

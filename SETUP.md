@@ -69,13 +69,13 @@ python src/server.py
 # Làm theo các bước 1-4 ở trên, sau đó:
 
 # 5. Cài đặt Ollama
-# Tải từ: https://ollama.ai/download
-# Windows: Chạy installer
-# macOS: brew install ollama
-# Linux: curl -fsSL https://ollama.ai/install.sh | sh
+Tải từ: https://ollama.ai/download
+Windows: Chạy installer
+macOS: brew install ollama
+Linux: curl -fsSL https://ollama.ai/install.sh | sh
 
 # 6. Tải models cần thiết
-ollama pull qwen2.5:3b-instruct    # LLM model
+ollama pull qwen2.5:3b-instruct     # LLM model
 ollama pull nomic-embed-text        # Embedding model
 
 # 7. Build vector index
@@ -162,64 +162,66 @@ ls data/
 # Phải thấy: hon_nhan.json, giao_thong_duong_bo.json, v.v.
 ```
 
-### Bước 5: Cài đặt Ollama (Offline AI)
+### Bước 5: Cài đặt Ollama (Offline AI) — Nhanh và ngắn gọn
 
-> **Lưu ý**: Bước này chỉ cần nếu bạn muốn sử dụng chế độ offline
+Nếu bạn muốn chạy hoàn toàn offline (không gửi dữ liệu ra internet), cài Ollama và tải 2 model chính: 1 model LLM để sinh văn bản và 1 model embedding để tạo vector (nếu cần embedding tại chỗ).
 
-#### 5.1. Cài đặt Ollama
+1) Cài Ollama
 
-**Windows:**
-```bash
-# Tải và cài đặt từ: https://ollama.ai/download/windows
-# Hoặc sử dụng winget:
+- Windows (PowerShell):
+```powershell
+# Tải installer từ https://ollama.ai/download/windows và chạy
+# Hoặc (winget):
 winget install Ollama.Ollama
 ```
 
-**macOS:**
+- macOS:
 ```bash
-# Sử dụng Homebrew:
+# Homebrew
 brew install ollama
-
-# Hoặc tải từ: https://ollama.ai/download/mac
 ```
 
-**Linux:**
+- Linux:
 ```bash
-# Cài đặt script:
 curl -fsSL https://ollama.ai/install.sh | sh
-
-# Hoặc manual:
-# Tải binary từ https://ollama.ai/download/linux
 ```
 
-#### 5.2. Khởi động Ollama service
+2) Khởi động (thường Ollama tự chạy sau cài đặt). Kiểm tra API:
 ```bash
-# Windows/macOS: Ollama tự động chạy service
-# Linux: 
-sudo systemctl start ollama
-sudo systemctl enable ollama
+curl http://localhost:11434/api/tags
 ```
 
-#### 5.3. Tải AI models
+3) Tải model cần thiết
+
+- Model LLM (gợi ý: 3b hoặc 1.5b cho máy CPU):
 ```bash
-# Model chính cho text generation (bắt buộc)
+# Trên máy yếu (nhanh):
+ollama pull qwen2.5:1.5b
+
+# Cân bằng chất lượng/tốc độ:
 ollama pull qwen2.5:3b-instruct
 
-# Model cho embeddings (bắt buộc)
-ollama pull nomic-embed-text
-
-# Model phụ (tùy chọn)
-ollama pull qwen2.5:7b-instruct  # Model lớn hơn, chất lượng cao hơn
+# Tùy chọn (chất lượng cao, nặng):
+ollama pull qwen2.5:7b-instruct
 ```
 
-#### 5.4. Kiểm tra Ollama
+- Model embedding (nếu muốn chạy embedding local):
 ```bash
-# Kiểm tra models đã tải
+ollama pull nomic-embed-text
+```
+
+4) Kiểm tra nhanh
+```bash
+# Liệt kê model đã tải
 ollama list
 
-# Test model
-ollama run qwen2.5:3b-instruct "Xin chào"
+# Test response (ngắn)
+ollama run qwen2.5:3b-instruct "Say: Hello"
 ```
+
+Ghi chú:
+- Nếu bạn đã có vector index (file `index/index.jsonl`) và không muốn dùng embedding local, set `EMBEDDINGS_ENABLED=false` trong `.env` để tắt phần embedding và tránh cần Ollama.
+- Model 7b rất nặng trên CPU — với máy không có GPU hãy ưu tiên `1.5b` hoặc `3b`.
 
 ### Bước 6: Cấu hình Gemini API (Online AI)
 
